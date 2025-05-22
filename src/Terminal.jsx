@@ -2,7 +2,7 @@
 const Terminal = ({output}) => {
   const { logs = [], errors = [] } = output;
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div style={{ backgroundColor: 'lightgreen', height: '100%', width: '100%' }}>
       <h2>Terminal</h2>
       {logs.length > 0 && (
         <div >
