@@ -61,16 +61,14 @@ const Editor = ({setOutput}) => {
           // In your main component where the Run button exists
 onClick={async () => {
   try {
-    console.log('Running code:', code);
+    
     const result = await runCode(code, language, true); // true for iframe usage
     console.log('Execution result:', result);
     setOutput({
       logs: result.outputs.map(o => o.content),
-      errors: result.errors.map(e => e.content)
+      errors: result.errors
     });
   } catch (error) {
-    console.log('Error during execution:', error);
-    console.error('Execution error:', error);
     setOutput({
       logs: [],
       errors: [`Execution failed: ${error.message}`]

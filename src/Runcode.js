@@ -39,14 +39,13 @@ iframe.srcdoc = `
       const originalConsole = { ...console };
       
       console.log = (...args) => {
-        outputs.push({ type: 'log', content: args.join(' ') });
-        originalConsole.log(...args);
-      };
-      
-      console.error = (...args) => {
-        errors.push({ type: 'error', content: args.join(' ') });
-        originalConsole.error(...args);
-      };
+      outputs.push({ type: 'log', content: args.join(' ') });
+    };
+
+    console.error = (...args) => {
+      errors.push({ type: 'error', content: args.join(' ') });
+    };
+
       
       // Improved error handler
       window.onerror = (message, source, lineno, colno, error) => {
@@ -77,7 +76,7 @@ iframe.srcdoc = `
        
         errors.push({ 
           type:  err.name, 
-          content: \`\${err.message}\\n\${err.stack}\` ,
+          content: \`\${err.message}\` ,
            line,
           column
         });
@@ -150,11 +149,11 @@ export async function runCode(code, language = 'javascript', useIframe = true) {
 // Function to validate JavaScript syntax
 function validateSyntax(code) {
   try {
-    console.log('Validating syntax...', code);
+    
     acorn.parse(code, { ecmaVersion: 2020 });
     return null;
   } catch (err) {
-    console.log('Syntax error:', err);
+    
     const loc = err.loc || { line: 1, column: 0 };
 
     const frame = codeFrameColumns(code, {
@@ -168,7 +167,11 @@ function validateSyntax(code) {
 
     return {
       type: 'syntax',
-      content: `${frame}\n\n${err.name}: ${err.message}`
+      message: err.message, // extracted for easier UI use
+      line: loc.line,
+      column: loc.column,
+      content: `${frame.split('|').slice(1)}`, // first line of the frame
     };
   }
 }
+// content: `${frame}\n\n${err.name}: ${err.message}`
