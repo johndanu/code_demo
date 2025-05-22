@@ -1,0 +1,4 @@
+/* codemirror-fix.css */
+.cm-editor .cm-scroller {
+  border-bottom: none !important;
+}
