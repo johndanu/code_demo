@@ -1,0 +1,20 @@
+//Syntax error
+console.log("Hello from Vanilla JS!"
+
+//Reference error
+console.log(x)
+
+//Type error
+const num = 42;
+num(); // Trying to call a number like a function → TypeError
+
+//Range errors
+function recurseForever() {
+  return recurseForever();
+}
+
+recurseForever(); // Causes a stack overflow → RangeError
+
+
+//URI errors
+decodeURIComponent('%'); // ❌ Malformed URI sequence
