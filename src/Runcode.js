@@ -69,10 +69,17 @@ iframe.srcdoc = `
          const fn = new Function(\`${code}\`);
           fn();
       } catch (err) {
-       console.log('Error caught in sandbox:', err);
+       const stackLine = err.stack?.split('\\n')[1] || '';
+  const match = stackLine.match(/<anonymous>:(\\d+):(\\d+)/);
+  const line = match ? Number(match[1]) : null;
+  const column = match ? Number(match[2]) : null;
+
+       
         errors.push({ 
-          type: 'execution', 
-          content: \`\${err.message}\\n\${err.stack}\` 
+          type:  err.name, 
+          content: \`\${err.message}\\n\${err.stack}\` ,
+           line,
+          column
         });
       }
       
@@ -154,7 +161,9 @@ function validateSyntax(code) {
       start: { line: loc.line, column: loc.column }
     }, {
       highlightCode: true, // Set true if you're using a terminal or supporting ANSI in the browser
-      message: err.message
+      message: err.message,
+      linesAbove: 0, // ← only show error line
+      linesBelow: 0
     });
 
     return {

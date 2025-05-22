@@ -69,6 +69,7 @@ onClick={async () => {
       errors: result.errors.map(e => e.content)
     });
   } catch (error) {
+    console.log('Error during execution:', error);
     console.error('Execution error:', error);
     setOutput({
       logs: [],
