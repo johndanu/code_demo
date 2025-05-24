@@ -15,17 +15,25 @@ const Terminal = ({output}) => {
       )}
 
       {errors.length > 0 && (
-        <div >
-          <div >
-            Errors:
-          </div>
-          {errors.map((error, i) => (
-            <div key={`error-${i}`} >
-              {error}
+            <div>
+              <div>Errors:</div>
+              {errors.map((error, i) => {
+                console.log(error);
+                const errorType = error.type;
+                const message = error.content;
+                const lineInfo = (error.line && error.column)
+                  ? ` (line: ${error.line>1?error.line-2:error.line}, column: ${error.column})`
+                  : '';
+                
+                return (
+                  <div key={`error-${i}`}>
+                    {`${errorType=='syntax'?'SyntaxError':errorType}: ${message}${lineInfo}`}
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      )}
+          )}
+
     </div>
   );
 };
