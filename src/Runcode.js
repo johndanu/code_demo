@@ -2,7 +2,7 @@
 
 import * as acorn from 'acorn';
 import { codeFrameColumns } from '@babel/code-frame';
-export function runInIframe(code, language = 'javascript') {
+export function runInIframe(code, language = 'javascript', useIframe = true) {
   return new Promise((resolve) => {
     if (language !== 'javascript') {
       resolve(`❌ Language '${language}' not supported`);
@@ -27,7 +27,8 @@ export function runInIframe(code, language = 'javascript') {
 
     // Generate sandbox HTML
     // In runCode.js - update the iframe srcdoc content
-iframe.srcdoc = `
+if(useIframe){ 
+  iframe.srcdoc = `
   <!DOCTYPE html>
   <html>
   <head>
@@ -94,6 +95,11 @@ iframe.srcdoc = `
   <body></body>
   </html>
 `;
+}
+else{
+  iframe.srcdoc = code;
+}    
+
   });
 }
 
@@ -131,7 +137,7 @@ export async function runCode(code, language = 'javascript', useIframe = true) {
   }
   
   switch (language) {
-  case 'javascript': return runJavaScript(code);
+  case 'javascript': return runInIframe(code,language,useIframe);
   
 
   default:

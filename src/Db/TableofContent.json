@@ -1,0 +1,31 @@
+[
+  { "id": 1, "tittle": "Introduction", "description": "Getting started with the basics",
+ "intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n" },
+
+  { "id": 2, "tittle": "Setup and Installation", "description": "Required tools and dependencies",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 3, "tittle": "Core Concepts", "description": "Understanding the fundamentals",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 4, "tittle": "User Interface", "description": "Designing beautiful interfaces",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 5, "tittle": "Data Management", "description": "Handling and storing data",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 6, "tittle": "Authentication", "description": "User login and security",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 7, "tittle": "API Integration", "description": "Connecting to external services",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 8, "tittle": "Testing", "description": "Ensuring code quality",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 9, "tittle": "Deployment", "description": "Going live with your application",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
+
+  { "id": 10, "tittle": "Best Practices", "description": "Tips for clean, maintainable code",
+"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  }
+]

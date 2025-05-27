@@ -18,3 +18,61 @@ recurseForever(); // Causes a stack overflow → RangeError
 
 //URI errors
 decodeURIComponent('%'); // ❌ Malformed URI sequence
+
+--------------------------------------------------------------------------------------------------------------------------
+<script>
+  (async () => {
+    const outputs = [];
+    const errors = [];
+
+    const originalConsole = { ...console };
+
+    console.log = (...args) => {
+      outputs.push({ type: 'log', content: args.join(' ') });
+    };
+
+    console.error = (...args) => {
+      errors.push({ type: 'error', content: args.join(' ') });
+    };
+
+    window.onerror = (message, source, lineno, colno, error) => {
+      const errorMsg = error ? error.stack : message;
+      errors.push({ 
+        type: 'unhandled', 
+        content: `${errorMsg}\n(at line ${lineno}:${colno})`
+      });
+      return true;
+    };
+
+    window.addEventListener('unhandledrejection', (event) => {
+      errors.push({ 
+        type: 'promise', 
+        content: event.reason?.stack || event.reason.toString() 
+      });
+    });
+
+    try {
+      const fn = new Function(`return ${code}`);
+      await fn();  // <-- Await the function result
+    } catch (err) {
+      const stackLine = err.stack?.split('\n')[1] || '';
+      const match = stackLine.match(/<anonymous>:(\d+):(\d+)/);
+      const line = match ? Number(match[1]) : null;
+      const column = match ? Number(match[2]) : null;
+
+      errors.push({ 
+        type: err.name, 
+        content: `${err.message}`,
+        line,
+        column
+      });
+    }
+
+    window.parent.postMessage({
+      type: 'sandbox-result',
+      outputs,
+      errors,
+      success: errors.length === 0
+    }, '*');
+  })();
+</script>

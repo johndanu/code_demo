@@ -1,12 +1,12 @@
 // Editor.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { html } from '@codemirror/lang-html';
 import { FaPlay } from 'react-icons/fa';
-import './codemirror-fix.css';
-import { runCode } from './Runcode'; // Adjust the import path as necessary
+
+import { runCode } from '../Runcode'; // Adjust the import path as necessary
 
 const languageExtensions = {
   javascript: javascript(),
@@ -14,8 +14,8 @@ const languageExtensions = {
   html: html(),
 };
 
-const Editor = ({setOutput}) => {
-  const [code, setCode] = useState('// Write your code here');
+const Editor = ({setOutput,taskcode}) => {
+  const [code, setCode] = useState(taskcode || `// Write your code here`);
   const [language, setLanguage] = useState('javascript');
 
   const handleChange = (value) => {
@@ -61,8 +61,8 @@ const Editor = ({setOutput}) => {
           // In your main component where the Run button exists
 onClick={async () => {
   try {
-    
-    const result = await runCode(code, language, true); // true for iframe usage
+    const exists=/<!DOCTYPE html>/i.test(code);
+    const result = await runCode(code, language,!exists); // true for iframe usage
     console.log('Execution result:', result);
     setOutput({
       logs: result.outputs.map(o => o.content),
