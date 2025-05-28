@@ -1,5 +1,5 @@
 // Editor.jsx
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
@@ -17,6 +17,8 @@ const languageExtensions = {
 const Editor = ({setOutput,taskcode}) => {
   const [code, setCode] = useState(taskcode || `// Write your code here`);
   const [language, setLanguage] = useState('javascript');
+  const [enableCheck, setEnableCheck] = useState(false);
+  const [previousCode, setPreviousCode] = useState('');
 
   const handleChange = (value) => {
     setCode(value);
@@ -25,6 +27,16 @@ const Editor = ({setOutput,taskcode}) => {
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
   };
+  useEffect(() => {
+      if(code===previousCode){
+        setEnableCheck(true);
+      }
+      else{
+        setEnableCheck(false);
+      }
+  
+  }, [code, previousCode]);
+  
 
   return (
     <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -45,8 +57,8 @@ const Editor = ({setOutput,taskcode}) => {
             <option value="html">HTML</option>
           </select>
         </div>
-
-        <button style={{
+        <div className='flex space-x-4'>
+           <button style={{
           backgroundColor: '#4CAF50',
           color: 'white',
           border: 'none',
@@ -68,6 +80,10 @@ onClick={async () => {
       logs: result.outputs.map(o => o.content),
       errors: result.errors
     });
+    if(result.errors.length===0) {
+      setPreviousCode(code); // Update previousCode only if there are no errors
+      ;
+    }
   } catch (error) {
     setOutput({
       logs: [],
@@ -79,6 +95,26 @@ onClick={async () => {
           <FaPlay />
           Run
         </button>
+         <button
+          disabled={!enableCheck}
+
+         style={{
+          backgroundColor:enableCheck? '#0000FF': '#A9A9A9',
+          color: 'white',
+          border: 'none',
+          padding: '6px 12px',
+          cursor: enableCheck? 'pointer':'not-allowed',
+           borderRadius: '4px',
+          display: 'flex',
+          alignItems: 'center',
+          opacity: enableCheck ? 1 : 0.6, 
+          // gap: '2px'
+        }}
+        >
+         Check
+        </button>
+        </div>
+       
       </div>
 
       {/* Code Editor */}
