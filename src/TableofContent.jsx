@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import tocData from './Db/TableofContent.json'; 
 import { useNavigate } from 'react-router-dom';
-import { FaSignInAlt,FaSignOutAlt } from 'react-icons/fa'; 
+import { FaSignInAlt,FaSignOutAlt,FaCheckCircle,FaHourglassHalf  } from 'react-icons/fa'; 
 
 const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
-  const [items] = useState(
-    tocData.map(item => ({
-      ...item,
-      title: item.tittle 
-    }))
-  );
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+     const taskStatusStr = localStorage.getItem('taskStatusList');
+    const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
+
+    // Map tocData to include a "status" based on localStorage (default: false)
+    const itemsWithStatus = tocData.map(item => {
+      const matched = taskStatusList.find(task => task.id === item.id);
+      return {
+        ...item,
+        title: item.tittle,
+        status: matched && isLoggedIn  ? matched.status : "undefined", // Default to "undefined" if not found
+      };
+    });
+
+    setItems(itemsWithStatus);
+
+  }, []);
+ 
   const navigate = useNavigate();
   const handleItemClick = (item) => {
     if (!isLoggedIn) {
@@ -33,6 +46,7 @@ const handleAuthClick = () => {
     // Handle logout logic here
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn'); // Remove login state from local storage
+    localStorage.removeItem('taskStatusList');
   } else {
     // Navigate to login page
     navigate('/login');
@@ -65,21 +79,37 @@ const handleAuthClick = () => {
                 onClick={() => handleItemClick(item)}
                 className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm font-semibold group-hover:bg-blue-200 transition-colors">
-                    {item.id}
+                <div className="flex justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm font-semibold group-hover:bg-blue-200 transition-colors">
+                      {item.id}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-medium text-gray-900 group-hover:underline transition-all duration-200">
+                        {item.title}
+                      </h3>
+                      {item.description && (
+                        <p className="text-sm text-gray-500 mt-1">
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-medium text-gray-900 group-hover:underline transition-all duration-200">
-                      {item.title}
-                    </h3>
-                    {item.description && (
-                      <p className="text-sm text-gray-500 mt-1">
-                        {item.description}
-                      </p>
+                  <div>
+                    {typeof item.status === "boolean" &&( <>
+
+                    {item.status ? (
+                      <FaCheckCircle className="text-green-500 text-xl" title="Completed" />
+                    ) : (
+                      <FaHourglassHalf className="text-yellow-500 text-xl" title="Pending" />
+                    )}
+                    </>
+                      
                     )}
                   </div>
                 </div>
+                
+
               </div>
             ))}
           </div>

@@ -107,11 +107,27 @@ onClick={async () => {
         </button>
          <button
           disabled={!enableCheck}
-          onClick={()=>{
-            if(enableCheck) {
-              navigate(`/syllabus/js/${Number(id)+1}`);
-            }
-          }}
+          onClick={() => {
+                  if (enableCheck) {
+                    // Step 1: Get the list from localStorage
+                    const taskStatusStr = localStorage.getItem('taskStatusList');
+                    let taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
+
+                    // Step 2: Find and update the specific task
+                    const currentId = Number(id);
+                    const taskIndex = taskStatusList.findIndex(task => task.id === currentId);
+                    if (taskIndex !== -1) {
+                      taskStatusList[taskIndex].status = true;
+                    }
+
+                    // Step 3: Save it back
+                    localStorage.setItem('taskStatusList', JSON.stringify(taskStatusList));
+
+                    // Step 4: Navigate to the next task
+                    navigate(`/syllabus/js/${currentId + 1}`);
+                  }
+                }}
+
 
          style={{
           backgroundColor:enableCheck? '#0000FF': '#A9A9A9',
