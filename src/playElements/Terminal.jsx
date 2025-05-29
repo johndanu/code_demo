@@ -1,6 +1,8 @@
 
 const Terminal = ({output}) => {
   const { logs = [], errors = [] } = output;
+
+  
   return (
     <div style={{ backgroundColor: 'black', height: '100%', width: '100%',color:'white',padding: '10px', overflowY: 'auto' }}>
       <h2>Terminal</h2>

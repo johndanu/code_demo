@@ -5,6 +5,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { html } from '@codemirror/lang-html';
 import { FaPlay } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { runCode } from '../Runcode'; // Adjust the import path as necessary
 
@@ -15,10 +16,13 @@ const languageExtensions = {
 };
 
 const Editor = ({setOutput,taskcode}) => {
+  console.log(taskcode);
   const [code, setCode] = useState(taskcode || `// Write your code here`);
   const [language, setLanguage] = useState('javascript');
   const [enableCheck, setEnableCheck] = useState(false);
   const [previousCode, setPreviousCode] = useState('');
+  const navigate= useNavigate();
+  const{id}=useParams();
 
   const handleChange = (value) => {
     setCode(value);
@@ -36,6 +40,11 @@ const Editor = ({setOutput,taskcode}) => {
       }
   
   }, [code, previousCode]);
+
+  useEffect(() => {
+  setCode(taskcode || `// Write your code here`);
+  setPreviousCode('');
+}, [taskcode]);
   
 
   return (
@@ -80,9 +89,10 @@ onClick={async () => {
       logs: result.outputs.map(o => o.content),
       errors: result.errors
     });
-    if(result.errors.length===0) {
+    
+    if(result.errors.length===0 ) {
       setPreviousCode(code); // Update previousCode only if there are no errors
-      ;
+      
     }
   } catch (error) {
     setOutput({
@@ -97,6 +107,11 @@ onClick={async () => {
         </button>
          <button
           disabled={!enableCheck}
+          onClick={()=>{
+            if(enableCheck) {
+              navigate(`/syllabus/js/${Number(id)+1}`);
+            }
+          }}
 
          style={{
           backgroundColor:enableCheck? '#0000FF': '#A9A9A9',
