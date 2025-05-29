@@ -13,33 +13,31 @@ const PlayGround = () => {
   const[taskcode, setTaskCode] = useState('');
   const [taskDetails, setTaskDetails] = useState('');
   useEffect(() => {
-    // Fetch the task code based on the id from the URL
-    const fetchTaskCode = async () => {
-      // try {
-      //   // const response = await fetch(`/api/tasks/${id}`); // Adjust the API endpoint as necessary
-      //   // if (!response.ok) {
-      //   //   throw new Error('Network response was not ok');
-      //   // }
-      //   const data = tocData.find(item => item.id === parseInt(id));
-      //   // const data = await response.json();
-      //   setTaskCode(data.code); // Assuming the API returns an object with a 'code' property
-      // } catch (error) {
-      //   console.error('Error fetching task code:', error);
-      // }
-        const data = tocData.find(item => item.id === parseInt(id));
-        
-        if (data) {
-          setTaskCode(data.intialCode?data.intialCode:`// Write your code here`); // Assuming the task code is stored in a 'code' property
-          setTaskDetails(data.task? data.task : ''); // Assuming the task details are stored in a 'task' property
-        } else {
-          console.error('Task or intial code not found for id:', id);
-        }
+  const fetchTaskCode = async () => {
+    const data = tocData.find(item => item.id === parseInt(id));
 
-    };
+    if (data) {
+      setTaskCode(data.intialCode ? data.intialCode : `// Write your code here`);
+      setTaskDetails(data.task ? data.task : '');
+    } else {
+      console.error('Task or initial code not found for id:', id);
+    }
 
-    fetchTaskCode();
-    setOutput({});
-  }, [id]);
+    // --- Local Storage Task Status Handling ---
+    const taskStatusStr = localStorage.getItem('taskStatusList');
+    let taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
+
+    const exists = taskStatusList.some(task => task.id === parseInt(id));
+    if (!exists) {
+      taskStatusList.push({ id: parseInt(id), status: false });
+      localStorage.setItem('taskStatusList', JSON.stringify(taskStatusList));
+    }
+  };
+
+  fetchTaskCode();
+  setOutput({});
+}, [id]);
+
 
   const [output, setOutput] = useState({});
 
