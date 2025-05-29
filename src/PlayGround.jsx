@@ -27,6 +27,7 @@ const PlayGround = () => {
       //   console.error('Error fetching task code:', error);
       // }
         const data = tocData.find(item => item.id === parseInt(id));
+        
         if (data) {
           setTaskCode(data.intialCode?data.intialCode:`// Write your code here`); // Assuming the task code is stored in a 'code' property
           setTaskDetails(data.task? data.task : ''); // Assuming the task details are stored in a 'task' property
@@ -37,6 +38,7 @@ const PlayGround = () => {
     };
 
     fetchTaskCode();
+    setOutput({});
   }, [id]);
 
   const [output, setOutput] = useState({});
@@ -57,10 +59,10 @@ const PlayGround = () => {
           </div>
           <div style={{ flex: 4, display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 2.5 }}>
-              <Editor setOutput={setOutput} taskcode={taskcode} />
+              <Editor  setOutput={setOutput} taskcode={taskcode} />
             </div>
             <div style={{ flex: 1.5 }}>
-              <Terminal output={output} />
+              <Terminal  output={output} />
             </div>
           </div>
         </>
