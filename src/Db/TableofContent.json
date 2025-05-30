@@ -1,32 +1,82 @@
 [
-  { "id": 1, "tittle": "Introduction", "description": "Getting started with the basics",
- "intialCode": "console.log(\"JavaScript is fun!\");",
-    "task": "Modify the initial code and console log \"Hello World!\"."},
-
-  { "id": 2, "tittle": "Setup and Installation", "description": "Required tools and dependencies",
-"intialCode": "console.log(2)" , "task":"print number 2 in terminal" },
-
-  { "id": 3, "tittle": "Core Concepts", "description": "Understanding the fundamentals",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 4, "tittle": "User Interface", "description": "Designing beautiful interfaces",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 5, "tittle": "Data Management", "description": "Handling and storing data",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 6, "tittle": "Authentication", "description": "User login and security",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 7, "tittle": "API Integration", "description": "Connecting to external services",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 8, "tittle": "Testing", "description": "Ensuring code quality",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 9, "tittle": "Deployment", "description": "Going live with your application",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  },
-
-  { "id": 10, "tittle": "Best Practices", "description": "Tips for clean, maintainable code",
-"intialCode": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome<\/title>\n  <\/head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    <\/script>\n  <\/body>\n<\/html>\n"  }
+  {
+    "id": 1,
+    "lesson": "Introduction to JavaScript",
+    "concept": "JavaScript is a programming language used to add interactivity and dynamic behavior to websites. It runs in the browser and can respond to user actions, manipulate webpage content, and interact with servers.",
+    "Task": "Modify the alert message to say \"JavaScript is fun!\" instead of the current message.",
+    "intialCode": "",
+    "codeexample": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Welcome</title>\n  </head>\n  <body>\n    <script>\n      alert(\"Welcome to JavaScript!\");\n    </script>\n  </body>\n</html>\n"
+  },
+  {
+    "id": 2,
+    "lesson": "JavaScript Syntax and Comments",
+    "concept": "JavaScript syntax refers to the set of rules that define how code is written and interpreted. Comments are notes in code ignored by the browser. Use // for single-line and /* */ for multi-line comments.",
+    "Task": " Given the following code, add a single-line comment above the variable declaration and a multi-line comment explaining the last two lines:",
+    "intialCode": "let x = 10;\nlet y = 5;\nlet total = x + y;\nconsole.log(total);\nalert(total);",
+    "codeexample": "// This is a single-line comment\nlet name = \"Asha\";\n/* This is a\n   multi-line comment */\nconsole.log(\"Hello, \" + name);\n"
+  },
+  {
+    "id": 3,
+    "lesson": "Variables with var",
+    "concept": "var is used to declare variables in JavaScript. It allows you to store and reuse data. Variables declared with var are function-scoped and can be re-declared or updated.",
+    "Task": "In the following code, change the declarations to use var instead of let, and update the console output to display both values in one line:",
+    "intialCode": "let animal = \"Dog\";\nlet sound = \"Bark\";\nconsole.log(animal);\nconsole.log(sound);\n",
+    "codeexample":"var myName = \"Shan\";\nvar myAge = 22;\nconsole.log(myName);\nconsole.log(myAge);\n"
+  },
+  {
+    "id": 4,
+    "lesson": " Variables with let",
+    "concept": "let is used to declare variables with block scope, meaning they are only accessible within the block they're defined in. It avoids issues caused by var's function scoping.",
+    "Task": " Modify the following code to use let and show that the score variable has a different value inside and outside the block:",
+    "intialCode": "var score = 50;\nif (true) {\n  var score = 100;\n  console.log(\"Block score:\", score);\n}\nconsole.log(\"Global score:\", score);",
+    "codeexample": "let age = 25;\nif (true) {\n  let age = 30;\n  console.log(\"Inside block:\", age); // 30\n}\nconsole.log(\"Outside block:\", age); // 25\n"
+  },
+  {
+    "id": 5,
+    "lesson": "Variables with const",
+    "concept": "const declares variables that cannot be reassigned. It's best for values that shouldn’t change, like configuration data. It ensures data integrity in your program.",
+    "Task": "From the following code, identify which line should be changed to use const and explain why:",
+    "intialCode": "let site = \"example.com\";\nlet year = 2024;\nsite = \"newsite.com\";\nyear = 2025;\n",
+    "codeexample":"const country = \"Sri Lanka\";\nconsole.log(country);\n// Try this line and see what happens:\n// country = \"India\";\n"
+  },
+  {
+    "id": 6,
+    "lesson": " Data Types Overview",
+    "concept": "JavaScript has several basic data types: Number, String, Boolean, Null, Undefined, Object, and Symbol. Each type represents a different kind of data used in programming.",
+    "Task": "Given the following values, write a line for each using typeof to log the data type:",
+    "intialCode": "\"hello\"\n42\nfalse\nnull\n{}\n",
+    "codeexample": "console.log(typeof 123); // number\nconsole.log(typeof \\\"JavaScript\\\"); // string\nconsole.log(typeof true); // boolean\nconsole.log(typeof null); // object\nconsole.log(typeof undefined); // undefined\n"
+  },
+  {
+    "id": 7,
+    "lesson": "Numbers and Arithmetic",
+    "concept": "JavaScript supports arithmetic operations like addition (+), subtraction (-), multiplication (*), division (/), and modulo (%). These are used for basic math tasks.",
+    "Task": " Modify the code below to add subtraction, multiplication, division, and modulo operations:",
+    "intialCode": "let a = 15;\nlet b = 4;\nconsole.log(\"Addition:\", a + b);\n",
+    "codeexample": "let num1 = 8;\nlet num2 = 3;\nconsole.log(\"Addition:\", num1 + num2);\nconsole.log(\"Subtraction:\", num1 - num2);\nconsole.log(\"Multiplication:\", num1 * num2);\nconsole.log(\"Division:\", num1 / num2);\nconsole.log(\"Remainder:\", num1 % num2);\n"
+  },
+  {
+    "id": 8,
+    "lesson": "Strings and String Literals",
+    "concept": "A string is a sequence of characters enclosed in quotes. JavaScript allows single (' ') or double (\" \") quotes to define strings.",
+    "Task": "In the following code, change the quote style used and verify it still works:",
+    "intialCode": "let message = \"Learning is fun!\";\nconsole.log(message);\n",
+    "codeexample": "let greeting = 'Hello';\nlet place = \"World\";\nconsole.log(greeting);\nconsole.log(place);\n"
+  },
+  {
+    "id": 9,
+    "lesson": "String Concatenation",
+    "concept": "Concatenation is the process of joining two or more strings using the + operator. It's used to build dynamic text or messages.",
+    "Task": "Given the code below, replace the separate logs with a single concatenated log statement:",
+    "intialCode": "let part1 = \"Good\";\nlet part2 = \"Morning\";\nconsole.log(part1);\nconsole.log(part2);\n",
+    "codeexample":"let firstName = \"Jane\";\nlet lastName = \"Doe\";\nlet fullName = firstName + \" \" + lastName;\nconsole.log(fullName);\n"
+  },
+  {
+    "id": 10,
+    "lesson": "Template Literals",
+    "concept": "Template literals use backticks () and allow embedding variables using ${}`. They're useful for creating dynamic strings and multiline strings more cleanly.",
+    "Task": "Convert the following string concatenation into a template literal:",
+    "intialCode": "let city = \"Jaffna\";\nlet temp = 30;\nlet report = \"The temperature in \" + city + \" is \" + temp + \" degrees.\";\nconsole.log(report);\n",
+    "codeexample":"let name = \"Liam\";\nlet age = 20;\nlet intro = `Hello, my name is ${name} and I am ${age} years old.`;\nconsole.log(intro);\n"
+  }
 ]

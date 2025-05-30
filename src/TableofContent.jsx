@@ -86,13 +86,9 @@ const handleAuthClick = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg font-medium text-gray-900 group-hover:underline transition-all duration-200">
-                        {item.title}
+                        {item.lesson}
                       </h3>
-                      {item.description && (
-                        <p className="text-sm text-gray-500 mt-1">
-                          {item.description}
-                        </p>
-                      )}
+                      
                     </div>
                   </div>
                   <div>

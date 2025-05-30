@@ -11,14 +11,19 @@ const PlayGround = () => {
   
   const { id } = useParams(); // dynamic id from URL
   const[taskcode, setTaskCode] = useState('');
-  const [taskDetails, setTaskDetails] = useState('');
+  const [taskDetails, setTaskDetails] = useState({});
   useEffect(() => {
   const fetchTaskCode = async () => {
     const data = tocData.find(item => item.id === parseInt(id));
 
     if (data) {
       setTaskCode(data.intialCode ? data.intialCode : `// Write your code here`);
-      setTaskDetails(data.task ? data.task : '');
+      setTaskDetails({
+        title:data.lesson,
+        concept:data.concept,
+        task:data.Task,
+        example:data.codeexample
+      });
     } else {
       console.error('Task or initial code not found for id:', id);
     }

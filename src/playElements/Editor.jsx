@@ -4,8 +4,8 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { html } from '@codemirror/lang-html';
-import { FaPlay } from 'react-icons/fa';
-import { useNavigate, useParams } from 'react-router-dom';
+import { FaPlay,FaArrowLeft } from 'react-icons/fa';
+import { useNavigate, useParams ,useLocation } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 
 
@@ -18,7 +18,9 @@ const languageExtensions = {
 };
 
 const Editor = ({setOutput,taskcode}) => {
-  console.log(taskcode);
+  const location = useLocation();
+  const pathSegments = location.pathname.split('/'); // ["", "syllabus", "js", "1"]
+  const basePath = `/${pathSegments[1]}/${pathSegments[2]}`; // "/syllabus/js"
   const [code, setCode] = useState(taskcode || `// Write your code here`);
   const [language, setLanguage] = useState('javascript');
   const [enableCheck, setEnableCheck] = useState(false);
@@ -68,14 +70,35 @@ const Editor = ({setOutput,taskcode}) => {
         justifyContent: 'space-between', 
         alignItems: 'center' 
       }}>
-        <div>
-          <label htmlFor="language">Language: </label>
-          <select id="language" value={language} onChange={handleLanguageChange}>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="html">HTML</option>
-          </select>
+        <div className='flex space-x-4 '>
+          <button
+            onClick={() => navigate(basePath, { replace: true })
+}
+            style={{
+              backgroundColor: '#555',
+              color: 'white',
+              border: 'none',
+              padding: '6px 10px',
+              cursor: 'pointer',
+              borderRadius: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <FaArrowLeft />
+            Back
+          </button>
+          <div>
+            <label htmlFor="language">Language: </label>
+            <select id="language" value={language} onChange={handleLanguageChange}>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="html">HTML</option>
+            </select>
+          </div>
         </div>
+        
         <div className='flex space-x-4'>
            <button style={{
           backgroundColor: '#4CAF50',

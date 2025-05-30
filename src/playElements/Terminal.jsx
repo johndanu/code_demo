@@ -6,6 +6,11 @@ const Terminal = ({output}) => {
   return (
     <div style={{ backgroundColor: 'black', height: '100%', width: '100%',color:'white',padding: '10px', overflowY: 'auto' }}>
       <h2>Terminal</h2>
+      {logs.length === 0 &&(
+        <>
+        <p> Click Run To Execute Code </p>
+        </>
+      )}
       {logs.length > 0 && (
         <div >
           {logs.map((log, i) => (
