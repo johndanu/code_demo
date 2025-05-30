@@ -3,28 +3,28 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 
 const Task = ({ taskDetails }) => {
-  const { title, concept, task, example } = taskDetails;
+  const { id,title, concept, task, example } = taskDetails;
   
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full ">
+    <div className="bg-white shadow-lg overflow-hidden h-full ">
       <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-white">{title}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-white">{id}. {title}</h1>
       </div>
 
       <div className="p-6 space-y-6">
         <section>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Concept</h3>
-          <p className="text-gray-600 leading-relaxed">{concept}</p>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-3">Concept</h3>
+          <p className="text-gray-600 text-lg leading-relaxed">{concept}</p>
         </section>
 
         <section>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Task</h3>
-          <p className="text-gray-600 leading-relaxed">{task}</p>
+          <h3 className="text-2xl  font-semibold text-gray-800 mb-3">Task</h3>
+          <p className="text-gray-600 text-lg leading-relaxed">{task}</p>
         </section>
 
         <section>
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">Example</h3>
-          <div className="relative rounded-lg overflow-hidden">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-3">Example</h3>
+          <div className="relative text-lg rounded-lg overflow-hidden">
             <CodeMirror
               value={example}
               extensions={[javascript()]}
