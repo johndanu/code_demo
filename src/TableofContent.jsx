@@ -57,10 +57,19 @@ const handleAuthClick = () => {
   return (
      <div className="min-h-screen bg-gray-50">
       {/* Top Nav Bar */}
-      <div className="bg-blue-600 text-white py-4 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 flex justify-end">
-          <button className="cursor-pointer flex items-center hover:opacity-80 transition-opacity" onClick={handleAuthClick}>
-            {!isLoggedIn? (<FaSignInAlt className="text-white text-2xl" />) : (<FaSignOutAlt className="text-white text-2xl" />)}
+       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">CODE DEMO</h1>
+          <button 
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-400 transition-all duration-300 ease-in-out transform hover:scale-105"
+            onClick={handleAuthClick}
+          >
+            <span className="hidden sm:inline">{isLoggedIn ? 'Sign Out' : 'Sign In'}</span>
+            {!isLoggedIn ? (
+              <FaSignInAlt className="text-xl" />
+            ) : (
+              <FaSignOutAlt className="text-xl" />
+            )}
           </button>
         </div>
       </div>

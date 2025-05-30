@@ -19,6 +19,7 @@ const PlayGround = () => {
     if (data) {
       setTaskCode(data.intialCode ? data.intialCode : `// Write your code here`);
       setTaskDetails({
+        id: data.id,
         title:data.lesson,
         concept:data.concept,
         task:data.Task,
