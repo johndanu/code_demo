@@ -4,8 +4,10 @@ import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { python } from '@codemirror/lang-python';
 import { html } from '@codemirror/lang-html';
-import { FaPlay } from 'react-icons/fa';
-import { useNavigate, useParams } from 'react-router-dom';
+import { FaPlay,FaArrowLeft } from 'react-icons/fa';
+import { useNavigate, useParams ,useLocation } from 'react-router-dom';
+import confetti from 'canvas-confetti';
+
 
 import { runCode } from '../Runcode'; // Adjust the import path as necessary
 
@@ -16,7 +18,9 @@ const languageExtensions = {
 };
 
 const Editor = ({setOutput,taskcode}) => {
-  console.log(taskcode);
+  const location = useLocation();
+  const pathSegments = location.pathname.split('/'); // ["", "syllabus", "js", "1"]
+  const basePath = `/${pathSegments[1]}/${pathSegments[2]}`; // "/syllabus/js"
   const [code, setCode] = useState(taskcode || `// Write your code here`);
   const [language, setLanguage] = useState('javascript');
   const [enableCheck, setEnableCheck] = useState(false);
@@ -27,6 +31,14 @@ const Editor = ({setOutput,taskcode}) => {
   const handleChange = (value) => {
     setCode(value);
   };
+  const fireConfetti = () => {
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+};
+
 
   const handleLanguageChange = (e) => {
     setLanguage(e.target.value);
@@ -58,14 +70,35 @@ const Editor = ({setOutput,taskcode}) => {
         justifyContent: 'space-between', 
         alignItems: 'center' 
       }}>
-        <div>
-          <label htmlFor="language">Language: </label>
-          <select id="language" value={language} onChange={handleLanguageChange}>
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="html">HTML</option>
-          </select>
+        <div className='flex space-x-4 '>
+          <button
+            onClick={() => navigate(basePath, { replace: true })
+}
+            style={{
+              backgroundColor: '#555',
+              color: 'white',
+              border: 'none',
+              padding: '6px 10px',
+              cursor: 'pointer',
+              borderRadius: '4px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            <FaArrowLeft />
+            Back
+          </button>
+          <div>
+            <label htmlFor="language">Language: </label>
+            <select id="language" value={language} onChange={handleLanguageChange}>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="html">HTML</option>
+            </select>
+          </div>
         </div>
+        
         <div className='flex space-x-4'>
            <button style={{
           backgroundColor: '#4CAF50',
@@ -107,26 +140,30 @@ onClick={async () => {
         </button>
          <button
           disabled={!enableCheck}
-          onClick={() => {
-                  if (enableCheck) {
-                    // Step 1: Get the list from localStorage
-                    const taskStatusStr = localStorage.getItem('taskStatusList');
-                    let taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
+          onClick={async () => {
+  if (enableCheck) {
+    // 🎉 Show confetti
+    fireConfetti();
 
-                    // Step 2: Find and update the specific task
-                    const currentId = Number(id);
-                    const taskIndex = taskStatusList.findIndex(task => task.id === currentId);
-                    if (taskIndex !== -1) {
-                      taskStatusList[taskIndex].status = true;
-                    }
+    // ✅ Update localStorage
+    const taskStatusStr = localStorage.getItem('taskStatusList');
+    let taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
 
-                    // Step 3: Save it back
-                    localStorage.setItem('taskStatusList', JSON.stringify(taskStatusList));
+    const currentId = Number(id);
+    const taskIndex = taskStatusList.findIndex(task => task.id === currentId);
+    if (taskIndex !== -1) {
+      taskStatusList[taskIndex].status = true;
+    }
 
-                    // Step 4: Navigate to the next task
-                    navigate(`/syllabus/js/${currentId + 1}`);
-                  }
-                }}
+    localStorage.setItem('taskStatusList', JSON.stringify(taskStatusList));
+
+    // ⏳ Wait before navigation (e.g., 1.5 seconds)
+    setTimeout(() => {
+      navigate(`/syllabus/js/${currentId + 1}`);
+    }, 2000);
+  }
+}}
+
 
 
          style={{
