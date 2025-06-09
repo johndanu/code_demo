@@ -2,9 +2,11 @@ import { useState,useEffect } from "react";
 import tocData from './Db/TableofContent.json'; 
 import { useNavigate } from 'react-router-dom';
 import { FaSignInAlt,FaSignOutAlt,FaCheckCircle,FaHourglassHalf  } from 'react-icons/fa'; 
+import { useAuthApi } from './hooks/useAuthApi'; 
 
 const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
   const [items, setItems] = useState([]);
+  const { logout } = useAuthApi(); // Import the logout function from the custom hook
   useEffect(() => {
      const taskStatusStr = localStorage.getItem('taskStatusList');
     const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
@@ -40,13 +42,27 @@ const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
     navigate(`/syllabus/js/${item.id}`);
   };
 
-const handleAuthClick = () => {
+const handleAuthClick = async() => {
   if (isLoggedIn) {
 
-    // Handle logout logic here
+    try{
+
+    const refresh_token= localStorage.getItem('refresh_token'); // store user info if needed  
+    const res = await logout(refresh_token);
+    console.log('Logout successful:', res);
     setIsLoggedIn(false);
+    localStorage.removeItem('access_token'); // Remove access token from local storage
+    localStorage.removeItem('refresh_token'); // Remove refresh token from local storage
     localStorage.removeItem('isLoggedIn'); // Remove login state from local storage
     localStorage.removeItem('taskStatusList');
+
+    }
+
+    catch (error) {
+      console.error('Logout failed:',error);
+    }
+    // Handle logout logic here
+    
   } else {
     // Navigate to login page
     navigate('/login');

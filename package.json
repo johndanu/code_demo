@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "generate-api": "openapi-generator-cli generate -i D:/Intern_Task/code_demo_backend/docs/authapi.yaml -g javascript -o ./src/api-client"
+    
   },
   "dependencies": {
     "@babel/code-frame": "^7.27.1",
@@ -29,6 +31,7 @@
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.1",
+    "superagent": "^10.2.1",
     "tailwindcss": "^4.1.7",
     "yup": "^1.6.1"
   },
