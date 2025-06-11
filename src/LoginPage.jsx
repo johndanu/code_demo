@@ -5,13 +5,20 @@ import {
   Avatar,
   Paper,
   Typography,
+  CircularProgress
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Imageicon from './assets/code.webp';
+import { useAuthApi } from './hooks/useAuthApi'; 
+import { useState } from 'react';
 
 export default function LoginPage({ setIsLoggedIn }) {
-    const navigate = useNavigate();
+  const { login } = useAuthApi(); 
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState('');
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -25,13 +32,22 @@ export default function LoginPage({ setIsLoggedIn }) {
         .min(6, 'Password must be at least 6 characters')
         .required('Password is required'),
     }),
-    onSubmit: (values) => {
-      console.log('Form data:', values);
-      setIsLoggedIn(true); // Update the login state in the parent component
-      localStorage.setItem('isLoggedIn',true) // Set the login state to true
-       navigate(-1);
-
-      
+    onSubmit: async (values) => {
+      setApiError('');
+      setLoading(true);
+      try {
+        const res = await login(values.email, values.password);
+        localStorage.setItem('access_token', res.accessToken); // or however your token is named
+        localStorage.setItem('refresh_token', res.refreshToken); // store user info if needed
+        localStorage.setItem('isLoggedIn', true);
+        setIsLoggedIn(true);
+        navigate('/syllabus/js'); // change route as needed
+      } catch (error) {
+        console.error('Login failed:', error);
+        setApiError('Invalid email or password.');
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
@@ -80,13 +96,20 @@ export default function LoginPage({ setIsLoggedIn }) {
             />
           </div>
 
+          {apiError && (
+            <Typography color="error" align="center" className="mb-2">
+              {apiError}
+            </Typography>
+          )}
+
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
+            disabled={loading}
           >
-            Login
+            {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
           </Button>
         </form>
       </Paper>
