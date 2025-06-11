@@ -7,6 +7,8 @@ import { useAuthApi } from './hooks/useAuthApi';
 const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
   const [items, setItems] = useState([]);
   const { logout } = useAuthApi(); // Import the logout function from the custom hook
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
+
   useEffect(() => {
      const taskStatusStr = localStorage.getItem('taskStatusList');
     const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
@@ -42,32 +44,32 @@ const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
     navigate(`/syllabus/js/${item.id}`);
   };
 
-const handleAuthClick = async() => {
+const handleAuthClick = () => {
   if (isLoggedIn) {
-
-    try{
-
-    const refresh_token= localStorage.getItem('refresh_token'); // store user info if needed  
-    const res = await logout(refresh_token);
-    console.log('Logout successful:', res);
-    setIsLoggedIn(false);
-    localStorage.removeItem('access_token'); // Remove access token from local storage
-    localStorage.removeItem('refresh_token'); // Remove refresh token from local storage
-    localStorage.removeItem('isLoggedIn'); // Remove login state from local storage
-    localStorage.removeItem('taskStatusList');
-
-    }
-
-    catch (error) {
-      console.error('Logout failed:',error);
-    }
-    // Handle logout logic here
-    
+    setShowSignOutModal(true); // Show confirmation modal
   } else {
-    // Navigate to login page
     navigate('/login');
   }
 };
+
+const confirmSignOut = async () => {
+  try {
+    const refresh_token = localStorage.getItem('refresh_token');
+    const res = await logout(refresh_token);
+    console.log('Logout successful:', res);
+    setIsLoggedIn(false);
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('taskStatusList');
+  } catch (error) {
+    console.error('Logout failed:', error);
+  } finally {
+    setShowSignOutModal(false); // Close modal
+  }
+};
+
+
 
 
   return (
@@ -136,6 +138,29 @@ const handleAuthClick = async() => {
           </div>
         </div>
       </div>
+      {showSignOutModal && (
+  <div className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6">
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Confirm Sign Out</h2>
+      <p className="text-gray-600 mb-6">Are you sure you want to sign out?</p>
+      <div className="flex justify-end gap-4">
+        <button
+          onClick={() => setShowSignOutModal(false)}
+          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={confirmSignOut}
+          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+        >
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
