@@ -14,6 +14,10 @@ docs/ApiAuthRegisterPost201Response.md
 docs/ApiAuthRegisterPost400Response.md
 docs/ApiAuthRegisterPostRequest.md
 docs/DefaultApi.md
+docs/TableOfContentsGet200ResponseInner.md
+docs/TableOfContentsGet200ResponseInnerTasksInner.md
+docs/TableOfContentsTasksIdGet200Response.md
+docs/TableOfContentsTasksIdGet200ResponseInitialTestCase.md
 git_push.sh
 mocha.opts
 package.json
@@ -31,3 +35,7 @@ src/model/ApiAuthLogoutPost403Response.js
 src/model/ApiAuthRegisterPost201Response.js
 src/model/ApiAuthRegisterPost400Response.js
 src/model/ApiAuthRegisterPostRequest.js
+src/model/TableOfContentsGet200ResponseInner.js
+src/model/TableOfContentsGet200ResponseInnerTasksInner.js
+src/model/TableOfContentsTasksIdGet200Response.js
+src/model/TableOfContentsTasksIdGet200ResponseInitialTestCase.js

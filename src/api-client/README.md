@@ -124,6 +124,8 @@ Class | Method | HTTP request | Description
 *AuthApi.DefaultApi* | [**apiAuthLoginPost**](docs/DefaultApi.md#apiAuthLoginPost) | **POST** /api/auth/login | User login
 *AuthApi.DefaultApi* | [**apiAuthLogoutPost**](docs/DefaultApi.md#apiAuthLogoutPost) | **POST** /api/auth/logout | User logout
 *AuthApi.DefaultApi* | [**apiAuthRegisterPost**](docs/DefaultApi.md#apiAuthRegisterPost) | **POST** /api/auth/register | User registration
+*AuthApi.DefaultApi* | [**tableOfContentsGet**](docs/DefaultApi.md#tableOfContentsGet) | **GET** /table-of-contents/ | Get Table of Contents
+*AuthApi.DefaultApi* | [**tableOfContentsTasksIdGet**](docs/DefaultApi.md#tableOfContentsTasksIdGet) | **GET** /table-of-contents/tasks/{id} | Get Task by ID
 
 
 ## Documentation for Models
@@ -139,9 +141,27 @@ Class | Method | HTTP request | Description
  - [AuthApi.ApiAuthRegisterPost201Response](docs/ApiAuthRegisterPost201Response.md)
  - [AuthApi.ApiAuthRegisterPost400Response](docs/ApiAuthRegisterPost400Response.md)
  - [AuthApi.ApiAuthRegisterPostRequest](docs/ApiAuthRegisterPostRequest.md)
+ - [AuthApi.TableOfContentsGet200ResponseInner](docs/TableOfContentsGet200ResponseInner.md)
+ - [AuthApi.TableOfContentsGet200ResponseInnerTasksInner](docs/TableOfContentsGet200ResponseInnerTasksInner.md)
+ - [AuthApi.TableOfContentsTasksIdGet200Response](docs/TableOfContentsTasksIdGet200Response.md)
+ - [AuthApi.TableOfContentsTasksIdGet200ResponseInitialTestCase](docs/TableOfContentsTasksIdGet200ResponseInitialTestCase.md)
 
 
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+### BearerAuth
+
+
+- **Type**: API key
+- **API key parameter name**: Authorization
+- **Location**: HTTP header
+
+### RefreshTokenHeader
+
+
+- **Type**: API key
+- **API key parameter name**: x-refresh-token
+- **Location**: HTTP header
 

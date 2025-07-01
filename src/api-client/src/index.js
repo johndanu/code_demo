@@ -24,6 +24,10 @@ import ApiAuthLogoutPost403Response from './model/ApiAuthLogoutPost403Response';
 import ApiAuthRegisterPost201Response from './model/ApiAuthRegisterPost201Response';
 import ApiAuthRegisterPost400Response from './model/ApiAuthRegisterPost400Response';
 import ApiAuthRegisterPostRequest from './model/ApiAuthRegisterPostRequest';
+import TableOfContentsGet200ResponseInner from './model/TableOfContentsGet200ResponseInner';
+import TableOfContentsGet200ResponseInnerTasksInner from './model/TableOfContentsGet200ResponseInnerTasksInner';
+import TableOfContentsTasksIdGet200Response from './model/TableOfContentsTasksIdGet200Response';
+import TableOfContentsTasksIdGet200ResponseInitialTestCase from './model/TableOfContentsTasksIdGet200ResponseInitialTestCase';
 import DefaultApi from './api/DefaultApi';
 
 
@@ -130,6 +134,30 @@ export {
      * @property {module:model/ApiAuthRegisterPostRequest}
      */
     ApiAuthRegisterPostRequest,
+
+    /**
+     * The TableOfContentsGet200ResponseInner model constructor.
+     * @property {module:model/TableOfContentsGet200ResponseInner}
+     */
+    TableOfContentsGet200ResponseInner,
+
+    /**
+     * The TableOfContentsGet200ResponseInnerTasksInner model constructor.
+     * @property {module:model/TableOfContentsGet200ResponseInnerTasksInner}
+     */
+    TableOfContentsGet200ResponseInnerTasksInner,
+
+    /**
+     * The TableOfContentsTasksIdGet200Response model constructor.
+     * @property {module:model/TableOfContentsTasksIdGet200Response}
+     */
+    TableOfContentsTasksIdGet200Response,
+
+    /**
+     * The TableOfContentsTasksIdGet200ResponseInitialTestCase model constructor.
+     * @property {module:model/TableOfContentsTasksIdGet200ResponseInitialTestCase}
+     */
+    TableOfContentsTasksIdGet200ResponseInitialTestCase,
 
     /**
     * The DefaultApi service constructor.

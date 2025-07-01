@@ -14,10 +14,12 @@ import { useAuthApi } from './hooks/useAuthApi';
 import { useState } from 'react';
 
 export default function LoginPage({ setIsLoggedIn }) {
-  const { login } = useAuthApi(); 
+  const { login,api } = useAuthApi(); 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState('');
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -40,6 +42,13 @@ export default function LoginPage({ setIsLoggedIn }) {
         localStorage.setItem('access_token', res.accessToken); // or however your token is named
         localStorage.setItem('refresh_token', res.refreshToken); // store user info if needed
         localStorage.setItem('isLoggedIn', true);
+        // api.apiClient.defaultHeaders['Authorization'] = `Bearer ${res.accessToken}`;
+        // api.apiClient.defaultHeaders['x-refresh-token'] = res.refreshToken;
+//         console.log("Authorization:", res.headers['authorization']);
+// console.log("x-refresh-token:", res.headers['x-refresh-token']);
+
+        api.apiClient.authentications['BearerAuth'].apiKey = `Bearer ${res.accessToken}`;
+    api.apiClient.authentications['RefreshTokenHeader'].apiKey = res.refreshToken;
         setIsLoggedIn(true);
         navigate('/syllabus/js'); // change route as needed
       } catch (error) {

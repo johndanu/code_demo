@@ -44,5 +44,5 @@ export const useAuthApi = () => {
 
 
 
-  return { login, register,logout };
+  return { login, register,logout,api};
 };

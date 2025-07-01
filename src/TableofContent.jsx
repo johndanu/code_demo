@@ -1,29 +1,22 @@
 import { useState,useEffect } from "react";
 import tocData from './Db/TableofContent.json'; 
 import { useNavigate } from 'react-router-dom';
-import { FaSignInAlt,FaSignOutAlt,FaCheckCircle,FaHourglassHalf  } from 'react-icons/fa'; 
+import { FaSignInAlt,FaSignOutAlt,FaCheckCircle,FaHourglassHalf , FaChevronDown, FaChevronUp } from 'react-icons/fa'; 
 import { useAuthApi } from './hooks/useAuthApi'; 
+import { useContentApi } from "./hooks/useContentApi";
 
 const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
   const [items, setItems] = useState([]);
   const { logout } = useAuthApi(); // Import the logout function from the custom hook
   const [showSignOutModal, setShowSignOutModal] = useState(false);
-
+  const [openTasks, setOpenTasks] = useState({});
+  const { getAllcontents } = useContentApi(); // Import the getAllcontents function from the custom hook
+  // Fetch the table of contents data from the API
+  
   useEffect(() => {
-     const taskStatusStr = localStorage.getItem('taskStatusList');
-    const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
-
-    // Map tocData to include a "status" based on localStorage (default: false)
-    const itemsWithStatus = tocData.map(item => {
-      const matched = taskStatusList.find(task => task.id === item.id);
-      return {
-        ...item,
-        title: item.tittle,
-        status: matched && isLoggedIn  ? matched.status : "undefined", // Default to "undefined" if not found
-      };
-    });
-
-    setItems(itemsWithStatus);
+     
+    //for checking
+    tableContent(); // Call the function to fetch table of contents
 
   }, []);
  
@@ -69,6 +62,33 @@ const confirmSignOut = async () => {
   }
 };
 
+const tableContent=async () => { 
+  try {
+    const data = await getAllcontents();
+    console.log('Table of contents fetched successfully:', data);
+    const taskStatusStr = localStorage.getItem('taskStatusList');
+    const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
+
+    // Map tocData to include a "status" based on localStorage (default: false)
+    const itemsWithStatus = data.map(item => {
+      const matched = taskStatusList.find(task => task.id === item.id);
+      return {
+        ...item,
+        title: item.content,
+        status: matched && isLoggedIn  ? matched.status : "undefined", // Default to "undefined" if not found
+      };
+    });
+
+    setItems(itemsWithStatus);
+    console.log("Items with status:", itemsWithStatus);
+
+
+
+  } catch (error) {
+    console.error('Failed to fetch table of contents:', error);
+  }
+ }
+
 
 
 
@@ -100,21 +120,52 @@ const confirmSignOut = async () => {
 
         <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
           <div className="space-y-2">
-            {items.map((item) => (
+            {items.map((item,index) => (
               <div
                 key={item.id}
-                onClick={() => handleItemClick(item)}
-                className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
+                // onClick={() => handleItemClick(item)}
+                // className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200"
               >
                 <div className="flex justify-between">
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm font-semibold group-hover:bg-blue-200 transition-colors">
-                      {item.id}
+                      {index + 1}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-medium text-gray-900 group-hover:underline transition-all duration-200">
-                        {item.lesson}
+                      <h3 
+                      onClick={()=>setOpenTasks((prev) => ({
+                          ...prev,
+                          [item.id]: !prev[item.id],
+                        }))} className="flex justify-between items-center w-full ">
+                         <span>{item.title}</span>
+  {openTasks[item.id] ? (
+    <FaChevronUp className="ml-2 text-lg" />
+  ) : (
+    <FaChevronDown className="ml-2 text-lg" />
+  )}
                       </h3>
+                         {item.tasks && openTasks[item.id] && item.tasks.map((task) => (
+                        <div key={task.id} className="mt-4 ml-4 border-l-2 pl-4 border-gray-300">
+                          <h4   onClick={() => handleItemClick(task)} className="text-md font-semibold text-blue-600 cursor-pointer">{task.header}</h4>
+                          {/* <p className="text-sm text-gray-800 mt-1"><strong>Concept:</strong> {task.concept}</p>
+                          <p className="text-sm text-gray-600 mt-1"><strong>Description:</strong> {task.description}</p>
+                          <div className="mt-2">
+                            <p className="text-sm font-medium text-gray-700">Example:</p>
+                            <pre className="bg-gray-100 text-sm p-2 rounded overflow-auto">
+                              <code>{task.example}</code>
+                            </pre>
+                          </div> */}
+                          {/* {task.initial_code && (
+                            <div className="mt-2">
+                              <p className="text-sm font-medium text-gray-700">Initial Code:</p>
+                              <pre className="bg-gray-100 text-sm p-2 rounded overflow-auto">
+                                <code>{task.initial_code}</code>
+                              </pre>
+                            </div>
+                          )} */}
+                        </div>
+                      ))}
+                      
                       
                     </div>
                   </div>

@@ -45,6 +45,8 @@ class ApiClient {
          * @type {Array.<String>}
          */
         this.authentications = {
+            'BearerAuth': {type: 'apiKey', 'in': 'header', name: 'Authorization'},
+            'RefreshTokenHeader': {type: 'apiKey', 'in': 'header', name: 'x-refresh-token'}
         }
 
 	/**

@@ -7,6 +7,7 @@ import { FaPlay, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import { runCode } from '../Runcode';
+import isEqual from 'lodash/isEqual';
 import {
   Dialog,
   DialogTitle,
@@ -22,7 +23,7 @@ const languageExtensions = {
   html: html(),
 };
 
-const Editor = ({ setOutput, taskcode }) => {
+const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/');
   const basePath = `/${pathSegments[1]}/${pathSegments[2]}`;
@@ -31,6 +32,7 @@ const Editor = ({ setOutput, taskcode }) => {
   const [enableCheck, setEnableCheck] = useState(false);
   const [previousCode, setPreviousCode] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showFailureModal, setShowFailureModal] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -64,6 +66,17 @@ const Editor = ({ setOutput, taskcode }) => {
   }, [taskcode]);
 
   const handleCheck = async () => {
+    if (output.errors.length > 0) {
+      alert("Please fix the errors before checking.");
+      return;
+    }
+    console.log("Checking output:", output.logs);
+    console.log("Expected output:", expectedOutput.output.consoleOutput);
+   if (!isEqual(output.logs, expectedOutput.output.consoleOutput)) {
+  setShowFailureModal(true);
+  return;
+}
+
     fireConfetti();
 
     const taskStatusStr = localStorage.getItem('taskStatusList');
@@ -77,10 +90,9 @@ const Editor = ({ setOutput, taskcode }) => {
 
     localStorage.setItem('taskStatusList', JSON.stringify(taskStatusList));
 
-    // Show modal instead of navigating immediately
     setTimeout(() => {
       setShowModal(true);
-    }, 1000); // Wait a bit after confetti
+    }, 1000);
   };
 
   const handleModalResponse = (goNext) => {
@@ -110,7 +122,7 @@ const Editor = ({ setOutput, taskcode }) => {
               id="language"
               value={language}
               onChange={handleLanguageChange}
-              className="text-black px-2 py-1 rounded"
+              className="text-white px-2 py-1 rounded"
             >
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>
@@ -126,6 +138,7 @@ const Editor = ({ setOutput, taskcode }) => {
               try {
                 const exists = /<!DOCTYPE html>/i.test(code);
                 const result = await runCode(code, language, !exists);
+
                 setOutput({
                   logs: result.outputs.map(o => o.content),
                   errors: result.errors
@@ -170,9 +183,11 @@ const Editor = ({ setOutput, taskcode }) => {
         />
       </div>
 
-      {/* Confirmation Modal */}
+      {/* ✅ Success Modal */}
       <Dialog open={showModal} onClose={() => handleModalResponse(false)}>
-        <DialogTitle className="text-xl font-semibold text-center">Proceed to Next Question?</DialogTitle>
+        <DialogTitle className="text-xl font-semibold text-center">
+          Proceed to Next Question?
+        </DialogTitle>
         <DialogContent>
           <Typography className="text-gray-700 text-center">
             Are you sure you want to continue to the next question?
@@ -194,6 +209,27 @@ const Editor = ({ setOutput, taskcode }) => {
             className="hover:bg-red-100"
           >
             No
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* ❌ Failure Modal */}
+      <Dialog open={showFailureModal} onClose={() => setShowFailureModal(false)}>
+        <DialogTitle className="text-xl font-semibold text-center text-red-600">
+          Incorrect Output
+        </DialogTitle>
+        <DialogContent>
+          <Typography className="text-gray-700 text-center">
+            Output does not match the expected result. Please try again.
+          </Typography>
+        </DialogContent>
+        <DialogActions className="justify-center pb-4">
+          <Button
+            onClick={() => setShowFailureModal(false)}
+            variant="contained"
+            color="error"
+          >
+            Try Again
           </Button>
         </DialogActions>
       </Dialog>

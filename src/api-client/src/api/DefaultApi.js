@@ -24,6 +24,8 @@ import ApiAuthLogoutPost403Response from '../model/ApiAuthLogoutPost403Response'
 import ApiAuthRegisterPost201Response from '../model/ApiAuthRegisterPost201Response';
 import ApiAuthRegisterPost400Response from '../model/ApiAuthRegisterPost400Response';
 import ApiAuthRegisterPostRequest from '../model/ApiAuthRegisterPostRequest';
+import TableOfContentsGet200ResponseInner from '../model/TableOfContentsGet200ResponseInner';
+import TableOfContentsTasksIdGet200Response from '../model/TableOfContentsTasksIdGet200Response';
 
 /**
 * Default service.
@@ -164,6 +166,86 @@ export default class DefaultApi {
       let returnType = ApiAuthRegisterPost201Response;
       return this.apiClient.callApi(
         '/api/auth/register', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the tableOfContentsGet operation.
+     * @callback module:api/DefaultApi~tableOfContentsGetCallback
+     * @param {String} error Error message, if any.
+     * @param {Array.<module:model/TableOfContentsGet200ResponseInner>} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get Table of Contents
+     * Returns the table of contents for the API documentation.
+     * @param {module:api/DefaultApi~tableOfContentsGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link Array.<module:model/TableOfContentsGet200ResponseInner>}
+     */
+    tableOfContentsGet(callback) {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = [];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = [TableOfContentsGet200ResponseInner];
+      return this.apiClient.callApi(
+        '/table-of-contents/', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the tableOfContentsTasksIdGet operation.
+     * @callback module:api/DefaultApi~tableOfContentsTasksIdGetCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/TableOfContentsTasksIdGet200Response} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Get Task by ID
+     * Returns the task details for a given task ID, including only the initial test case. 
+     * @param {Number} id The ID of the task to retrieve
+     * @param {module:api/DefaultApi~tableOfContentsTasksIdGetCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/TableOfContentsTasksIdGet200Response}
+     */
+    tableOfContentsTasksIdGet(id, callback) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling tableOfContentsTasksIdGet");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['RefreshTokenHeader', 'BearerAuth'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = TableOfContentsTasksIdGet200Response;
+      return this.apiClient.callApi(
+        '/table-of-contents/tasks/{id}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
