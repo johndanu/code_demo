@@ -74,7 +74,7 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
     }
     console.log("Checking output:", output.logs);
     console.log("Expected output:", expectedOutput.output.consoleOutput);
-   if (!isEqual(output.logs, expectedOutput.output.consoleOutput)) {
+   if ( expectedOutput.output.consoleOutput!=null && !isEqual(output.logs, expectedOutput.output.consoleOutput)) {
   setShowFailureModal(true);
   return;
 }
