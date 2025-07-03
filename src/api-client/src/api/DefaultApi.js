@@ -26,6 +26,9 @@ import ApiAuthRegisterPost400Response from '../model/ApiAuthRegisterPost400Respo
 import ApiAuthRegisterPostRequest from '../model/ApiAuthRegisterPostRequest';
 import TableOfContentsGet200ResponseInner from '../model/TableOfContentsGet200ResponseInner';
 import TableOfContentsTasksIdGet200Response from '../model/TableOfContentsTasksIdGet200Response';
+import TableOfContentsTasksTaskIdPost200Response from '../model/TableOfContentsTasksTaskIdPost200Response';
+import TableOfContentsTasksTaskIdPost400Response from '../model/TableOfContentsTasksTaskIdPost400Response';
+import TableOfContentsTasksTaskIdPostRequest from '../model/TableOfContentsTasksTaskIdPostRequest';
 
 /**
 * Default service.
@@ -182,15 +185,19 @@ export default class DefaultApi {
     /**
      * Get Table of Contents
      * Returns the table of contents for the API documentation.
+     * @param {Object} opts Optional parameters
+     * @param {Number} [id] Optional content ID to filter the table of contents
      * @param {module:api/DefaultApi~tableOfContentsGetCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link Array.<module:model/TableOfContentsGet200ResponseInner>}
      */
-    tableOfContentsGet(callback) {
+    tableOfContentsGet(opts, callback) {
+      opts = opts || {};
       let postBody = null;
 
       let pathParams = {
       };
       let queryParams = {
+        'id': opts['id']
       };
       let headerParams = {
       };
@@ -246,6 +253,54 @@ export default class DefaultApi {
       let returnType = TableOfContentsTasksIdGet200Response;
       return this.apiClient.callApi(
         '/table-of-contents/tasks/{id}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the tableOfContentsTasksTaskIdPost operation.
+     * @callback module:api/DefaultApi~tableOfContentsTasksTaskIdPostCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/TableOfContentsTasksTaskIdPost200Response} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Set Task Status
+     * Sets the status of a task for the authenticated user. 
+     * @param {Number} taskId The ID of the task to update status for
+     * @param {module:model/TableOfContentsTasksTaskIdPostRequest} tableOfContentsTasksTaskIdPostRequest 
+     * @param {module:api/DefaultApi~tableOfContentsTasksTaskIdPostCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/TableOfContentsTasksTaskIdPost200Response}
+     */
+    tableOfContentsTasksTaskIdPost(taskId, tableOfContentsTasksTaskIdPostRequest, callback) {
+      let postBody = tableOfContentsTasksTaskIdPostRequest;
+      // verify the required parameter 'taskId' is set
+      if (taskId === undefined || taskId === null) {
+        throw new Error("Missing the required parameter 'taskId' when calling tableOfContentsTasksTaskIdPost");
+      }
+      // verify the required parameter 'tableOfContentsTasksTaskIdPostRequest' is set
+      if (tableOfContentsTasksTaskIdPostRequest === undefined || tableOfContentsTasksTaskIdPostRequest === null) {
+        throw new Error("Missing the required parameter 'tableOfContentsTasksTaskIdPostRequest' when calling tableOfContentsTasksTaskIdPost");
+      }
+
+      let pathParams = {
+        'taskId': taskId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['RefreshTokenHeader', 'BearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = TableOfContentsTasksTaskIdPost200Response;
+      return this.apiClient.callApi(
+        '/table-of-contents/tasks/{taskId}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );

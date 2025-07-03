@@ -41,6 +41,7 @@ export default function LoginPage({ setIsLoggedIn }) {
         const res = await login(values.email, values.password);
         localStorage.setItem('access_token', res.accessToken); // or however your token is named
         localStorage.setItem('refresh_token', res.refreshToken); // store user info if needed
+        localStorage.setItem('id', res.id); // store user id if needed
         localStorage.setItem('isLoggedIn', true);
         // api.apiClient.defaultHeaders['Authorization'] = `Bearer ${res.accessToken}`;
         // api.apiClient.defaultHeaders['x-refresh-token'] = res.refreshToken;

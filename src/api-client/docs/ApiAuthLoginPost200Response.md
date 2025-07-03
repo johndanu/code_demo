@@ -6,5 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accessToken** | **String** |  | [optional] 
 **refreshToken** | **String** |  | [optional] 
+**id** | **Number** |  | [optional] 
 
 

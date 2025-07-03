@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaSignInAlt,FaSignOutAlt,FaCheckCircle,FaHourglassHalf , FaChevronDown, FaChevronUp } from 'react-icons/fa'; 
 import { useAuthApi } from './hooks/useAuthApi'; 
 import { useContentApi } from "./hooks/useContentApi";
+import { useStatusApi } from "./hooks/useStatusApi";
 
 const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
   const [items, setItems] = useState([]);
@@ -11,17 +12,20 @@ const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
   const [showSignOutModal, setShowSignOutModal] = useState(false);
   const [openTasks, setOpenTasks] = useState({});
   const { getAllcontents } = useContentApi(); // Import the getAllcontents function from the custom hook
+  const { updateTaskStatus } = useStatusApi(); // Import the updateTaskStatus function from the custom hook
   // Fetch the table of contents data from the API
   
   useEffect(() => {
      
-    //for checking
-    tableContent(); // Call the function to fetch table of contents
+   
+       tableContent(); // Call the function to fetch table of contents with default id
+    
+   
 
   }, []);
  
   const navigate = useNavigate();
-  const handleItemClick = (item) => {
+  const handleItemClick = async (item) => {
     if (!isLoggedIn) {
       const confirmed = window.confirm("You must log in to view this content. Do you want to log in and continue?");
       if (confirmed) {
@@ -31,6 +35,18 @@ const TableOfContents = ({isLoggedIn,setIsLoggedIn}) => {
         navigate('/login');
       }
       return;
+    }
+
+    console.log("task status:", item);
+
+    if (item.taskStatus==null || item.taskStatus.status == 'not_started') {
+        const  statusUpdate=await updateTaskStatus(item.id, 'in_progress');
+        if(statusUpdate.message != "Task status updated successfully") {
+          console.error("Failed to update task status:", statusUpdate);
+          alert("Failed to update task status. Please try again later.");
+          return;  
+        }
+
     }
 
     // If logged in, proceed normally
@@ -55,6 +71,7 @@ const confirmSignOut = async () => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('taskStatusList');
+    localStorage.removeItem('id'); // Clear user ID from localStorage
   } catch (error) {
     console.error('Logout failed:', error);
   } finally {
@@ -64,19 +81,38 @@ const confirmSignOut = async () => {
 
 const tableContent=async () => { 
   try {
-    const data = await getAllcontents();
+    let id=-1
+    if(localStorage.getItem('id')){
+      id=localStorage.getItem('id');
+    }
+    const data = await getAllcontents(id);
     console.log('Table of contents fetched successfully:', data);
     const taskStatusStr = localStorage.getItem('taskStatusList');
     const taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];
 
     // Map tocData to include a "status" based on localStorage (default: false)
     const itemsWithStatus = data.map(item => {
-      const matched = taskStatusList.find(task => task.id === item.id);
+      // const matched = taskStatusList.find(task => task.id === item.id);
       return {
-        ...item,
-        title: item.content,
-        status: matched && isLoggedIn  ? matched.status : "undefined", // Default to "undefined" if not found
-      };
+  ...item,
+  title: item.content,
+  status: isLoggedIn
+    ? (() => {
+        const statuses = item.tasks.map(task => task.taskStatus?.status);
+
+        if (statuses.every(status => status == null || status === 'not_started')) {
+          return "undefined";
+        }
+
+        if (statuses.every(status => status === 'completed')) {
+          return true;
+        }
+
+        return false;
+      })()
+    : "undefined"
+};
+
     });
 
     setItems(itemsWithStatus);
@@ -145,8 +181,11 @@ const tableContent=async () => {
   )}
                       </h3>
                          {item.tasks && openTasks[item.id] && item.tasks.map((task) => (
-                        <div key={task.id} className="mt-4 ml-4 border-l-2 pl-4 border-gray-300">
+                        <div key={task.id} className="flex justify-between mt-4 ml-4 border-l-2 pl-4 border-gray-300">
                           <h4   onClick={() => handleItemClick(task)} className="text-md font-semibold text-blue-600 cursor-pointer">{task.header}</h4>
+                          <div>
+                            {task.taskStatus !=null ? task.taskStatus.status === 'completed' ?  <FaCheckCircle className="text-green-500 text-xl" title="Completed" />: <FaHourglassHalf className="text-yellow-500 text-xl" title="Pending" />:""}
+                          </div>
                           {/* <p className="text-sm text-gray-800 mt-1"><strong>Concept:</strong> {task.concept}</p>
                           <p className="text-sm text-gray-600 mt-1"><strong>Description:</strong> {task.description}</p>
                           <div className="mt-2">

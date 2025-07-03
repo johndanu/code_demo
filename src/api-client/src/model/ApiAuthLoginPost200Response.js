@@ -53,6 +53,9 @@ class ApiAuthLoginPost200Response {
             if (data.hasOwnProperty('refreshToken')) {
                 obj['refreshToken'] = ApiClient.convertToType(data['refreshToken'], 'String');
             }
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            }
         }
         return obj;
     }
@@ -89,6 +92,11 @@ ApiAuthLoginPost200Response.prototype['accessToken'] = undefined;
  * @member {String} refreshToken
  */
 ApiAuthLoginPost200Response.prototype['refreshToken'] = undefined;
+
+/**
+ * @member {Number} id
+ */
+ApiAuthLoginPost200Response.prototype['id'] = undefined;
 
 
 

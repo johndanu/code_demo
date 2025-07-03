@@ -7,6 +7,7 @@ import { FaPlay, FaArrowLeft } from 'react-icons/fa';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import { runCode } from '../Runcode';
+import { useStatusApi } from '../hooks/useStatusApi';
 import isEqual from 'lodash/isEqual';
 import {
   Dialog,
@@ -35,6 +36,7 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
   const [showFailureModal, setShowFailureModal] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { updateTaskStatus } = useStatusApi();
 
   const handleChange = (value) => {
     setCode(value);
@@ -77,7 +79,13 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
   return;
 }
 
-    fireConfetti();
+    const taskUpStatus= await updateTaskStatus(id, 'completed');
+
+    if(taskUpStatus.status === 200){
+      fireConfetti();
+    }
+
+    
 
     const taskStatusStr = localStorage.getItem('taskStatusList');
     let taskStatusList = taskStatusStr ? JSON.parse(taskStatusStr) : [];

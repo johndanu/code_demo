@@ -16,12 +16,6 @@ const Task = ({ taskDetails }) => {
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">Concept</h3>
           <p className="text-gray-600 text-lg leading-relaxed">{concept}</p>
         </section>
-
-        <section>
-          <h3 className="text-2xl  font-semibold text-gray-800 mb-3">Task</h3>
-          <p className="text-gray-600 text-lg leading-relaxed">{task}</p>
-        </section>
-
         <section>
           <h3 className="text-2xl font-semibold text-gray-800 mb-3">Example</h3>
           <div className="relative text-lg rounded-lg overflow-hidden">
@@ -44,6 +38,10 @@ const Task = ({ taskDetails }) => {
               }}
             />
           </div>
+        </section>
+         <section>
+          <h3 className="text-2xl  font-semibold text-gray-800 mb-3">Task</h3>
+          <p className="text-gray-600 text-lg leading-relaxed">{task}</p>
         </section>
       </div>
     </div>

@@ -38,9 +38,10 @@ export const useContentApi = () => {
   };
 
 
-  const getAllcontents = () => {
+  const getAllcontents = (id) => {
   return new Promise((resolve, reject) => {
-    api.tableOfContentsGet((error, data, response) => {
+    if(id<0){
+      api.tableOfContentsGet({},(error, data, response) => {
       if (error) {
         reject(error);
       } else {
@@ -48,6 +49,18 @@ export const useContentApi = () => {
         resolve(data);
       }
     });
+    }
+    else{
+        api.tableOfContentsGet({id:id},(error, data, response) => {
+      if (error) {
+        reject(error);
+      } else {
+        console.log(`Data fetched for id=${id}:`, data);
+        resolve(data);
+      }
+    });
+    }
+    
   });
 };
 

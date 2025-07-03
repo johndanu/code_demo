@@ -26,8 +26,12 @@ import ApiAuthRegisterPost400Response from './model/ApiAuthRegisterPost400Respon
 import ApiAuthRegisterPostRequest from './model/ApiAuthRegisterPostRequest';
 import TableOfContentsGet200ResponseInner from './model/TableOfContentsGet200ResponseInner';
 import TableOfContentsGet200ResponseInnerTasksInner from './model/TableOfContentsGet200ResponseInnerTasksInner';
+import TableOfContentsGet200ResponseInnerTasksInnerTaskStatus from './model/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus';
 import TableOfContentsTasksIdGet200Response from './model/TableOfContentsTasksIdGet200Response';
 import TableOfContentsTasksIdGet200ResponseInitialTestCase from './model/TableOfContentsTasksIdGet200ResponseInitialTestCase';
+import TableOfContentsTasksTaskIdPost200Response from './model/TableOfContentsTasksTaskIdPost200Response';
+import TableOfContentsTasksTaskIdPost400Response from './model/TableOfContentsTasksTaskIdPost400Response';
+import TableOfContentsTasksTaskIdPostRequest from './model/TableOfContentsTasksTaskIdPostRequest';
 import DefaultApi from './api/DefaultApi';
 
 
@@ -148,6 +152,12 @@ export {
     TableOfContentsGet200ResponseInnerTasksInner,
 
     /**
+     * The TableOfContentsGet200ResponseInnerTasksInnerTaskStatus model constructor.
+     * @property {module:model/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus}
+     */
+    TableOfContentsGet200ResponseInnerTasksInnerTaskStatus,
+
+    /**
      * The TableOfContentsTasksIdGet200Response model constructor.
      * @property {module:model/TableOfContentsTasksIdGet200Response}
      */
@@ -158,6 +168,24 @@ export {
      * @property {module:model/TableOfContentsTasksIdGet200ResponseInitialTestCase}
      */
     TableOfContentsTasksIdGet200ResponseInitialTestCase,
+
+    /**
+     * The TableOfContentsTasksTaskIdPost200Response model constructor.
+     * @property {module:model/TableOfContentsTasksTaskIdPost200Response}
+     */
+    TableOfContentsTasksTaskIdPost200Response,
+
+    /**
+     * The TableOfContentsTasksTaskIdPost400Response model constructor.
+     * @property {module:model/TableOfContentsTasksTaskIdPost400Response}
+     */
+    TableOfContentsTasksTaskIdPost400Response,
+
+    /**
+     * The TableOfContentsTasksTaskIdPostRequest model constructor.
+     * @property {module:model/TableOfContentsTasksTaskIdPostRequest}
+     */
+    TableOfContentsTasksTaskIdPostRequest,
 
     /**
     * The DefaultApi service constructor.

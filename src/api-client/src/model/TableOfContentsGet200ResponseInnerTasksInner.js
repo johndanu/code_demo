@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import TableOfContentsGet200ResponseInnerTasksInnerTaskStatus from './TableOfContentsGet200ResponseInnerTasksInnerTaskStatus';
 
 /**
  * The TableOfContentsGet200ResponseInnerTasksInner model module.
@@ -53,6 +54,9 @@ class TableOfContentsGet200ResponseInnerTasksInner {
             if (data.hasOwnProperty('header')) {
                 obj['header'] = ApiClient.convertToType(data['header'], 'String');
             }
+            if (data.hasOwnProperty('taskStatus')) {
+                obj['taskStatus'] = TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.constructFromObject(data['taskStatus']);
+            }
         }
         return obj;
     }
@@ -66,6 +70,10 @@ class TableOfContentsGet200ResponseInnerTasksInner {
         // ensure the json data is a string
         if (data['header'] && !(typeof data['header'] === 'string' || data['header'] instanceof String)) {
             throw new Error("Expected the field `header` to be a primitive type in the JSON string but got " + data['header']);
+        }
+        // validate the optional field `taskStatus`
+        if (data['taskStatus']) { // data not null
+          TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.validateJSON(data['taskStatus']);
         }
 
         return true;
@@ -85,6 +93,11 @@ TableOfContentsGet200ResponseInnerTasksInner.prototype['id'] = undefined;
  * @member {String} header
  */
 TableOfContentsGet200ResponseInnerTasksInner.prototype['header'] = undefined;
+
+/**
+ * @member {module:model/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus} taskStatus
+ */
+TableOfContentsGet200ResponseInnerTasksInner.prototype['taskStatus'] = undefined;
 
 
 

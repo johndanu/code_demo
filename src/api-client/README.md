@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
 *AuthApi.DefaultApi* | [**apiAuthRegisterPost**](docs/DefaultApi.md#apiAuthRegisterPost) | **POST** /api/auth/register | User registration
 *AuthApi.DefaultApi* | [**tableOfContentsGet**](docs/DefaultApi.md#tableOfContentsGet) | **GET** /table-of-contents/ | Get Table of Contents
 *AuthApi.DefaultApi* | [**tableOfContentsTasksIdGet**](docs/DefaultApi.md#tableOfContentsTasksIdGet) | **GET** /table-of-contents/tasks/{id} | Get Task by ID
+*AuthApi.DefaultApi* | [**tableOfContentsTasksTaskIdPost**](docs/DefaultApi.md#tableOfContentsTasksTaskIdPost) | **POST** /table-of-contents/tasks/{taskId} | Set Task Status
 
 
 ## Documentation for Models
@@ -143,8 +144,12 @@ Class | Method | HTTP request | Description
  - [AuthApi.ApiAuthRegisterPostRequest](docs/ApiAuthRegisterPostRequest.md)
  - [AuthApi.TableOfContentsGet200ResponseInner](docs/TableOfContentsGet200ResponseInner.md)
  - [AuthApi.TableOfContentsGet200ResponseInnerTasksInner](docs/TableOfContentsGet200ResponseInnerTasksInner.md)
+ - [AuthApi.TableOfContentsGet200ResponseInnerTasksInnerTaskStatus](docs/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.md)
  - [AuthApi.TableOfContentsTasksIdGet200Response](docs/TableOfContentsTasksIdGet200Response.md)
  - [AuthApi.TableOfContentsTasksIdGet200ResponseInitialTestCase](docs/TableOfContentsTasksIdGet200ResponseInitialTestCase.md)
+ - [AuthApi.TableOfContentsTasksTaskIdPost200Response](docs/TableOfContentsTasksTaskIdPost200Response.md)
+ - [AuthApi.TableOfContentsTasksTaskIdPost400Response](docs/TableOfContentsTasksTaskIdPost400Response.md)
+ - [AuthApi.TableOfContentsTasksTaskIdPostRequest](docs/TableOfContentsTasksTaskIdPostRequest.md)
 
 
 ## Documentation for Authorization
