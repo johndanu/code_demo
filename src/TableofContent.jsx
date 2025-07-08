@@ -180,30 +180,29 @@ const tableContent=async () => {
     <FaChevronDown className="ml-2 text-lg" />
   )}
                       </h3>
-                         {item.tasks && openTasks[item.id] && item.tasks.map((task) => (
-                        <div key={task.id} className="flex justify-between mt-4 ml-4 border-l-2 pl-4 border-gray-300">
-                          <h4   onClick={() => handleItemClick(task)} className="text-md font-semibold text-blue-600 cursor-pointer">{task.header}</h4>
-                          <div>
-                            {task.taskStatus !=null ? task.taskStatus.status === 'completed' ?  <FaCheckCircle className="text-green-500 text-xl" title="Completed" />: <FaHourglassHalf className="text-yellow-500 text-xl" title="Pending" />:""}
-                          </div>
-                          {/* <p className="text-sm text-gray-800 mt-1"><strong>Concept:</strong> {task.concept}</p>
-                          <p className="text-sm text-gray-600 mt-1"><strong>Description:</strong> {task.description}</p>
-                          <div className="mt-2">
-                            <p className="text-sm font-medium text-gray-700">Example:</p>
-                            <pre className="bg-gray-100 text-sm p-2 rounded overflow-auto">
-                              <code>{task.example}</code>
-                            </pre>
-                          </div> */}
-                          {/* {task.initial_code && (
-                            <div className="mt-2">
-                              <p className="text-sm font-medium text-gray-700">Initial Code:</p>
-                              <pre className="bg-gray-100 text-sm p-2 rounded overflow-auto">
-                                <code>{task.initial_code}</code>
-                              </pre>
-                            </div>
-                          )} */}
-                        </div>
-                      ))}
+                         {item.tasks && openTasks[item.id] &&
+                          item.tasks
+                            .sort((a, b) => a.id - b.id) // 🔹 Sort by task.id ascending
+                            .map((task) => (
+                              <div key={task.id} className="flex justify-between mt-4 ml-4 border-l-2 pl-4 border-gray-300">
+                                <h4 onClick={() => handleItemClick(task)} className="text-md font-semibold text-blue-600 cursor-pointer">
+                                  {task.header}
+                                </h4>
+                                <div>
+                                  {task.taskStatus != null ? (
+                                    task.taskStatus.status === 'completed' ? (
+                                      <FaCheckCircle className="text-green-500 text-xl" title="Completed" />
+                                    ) : (
+                                      <FaHourglassHalf className="text-yellow-500 text-xl" title="Pending" />
+                                    )
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              </div>
+                            ))
+                        }
+
                       
                       
                     </div>

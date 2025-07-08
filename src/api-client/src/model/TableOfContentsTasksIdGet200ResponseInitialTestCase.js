@@ -54,6 +54,9 @@ class TableOfContentsTasksIdGet200ResponseInitialTestCase {
             if (data.hasOwnProperty('input')) {
                 obj['input'] = ApiClient.convertToType(data['input'], {'String': Object});
             }
+            if (data.hasOwnProperty('additional_code')) {
+                obj['additional_code'] = ApiClient.convertToType(data['additional_code'], 'String');
+            }
             if (data.hasOwnProperty('expected_output')) {
                 obj['expected_output'] = ApiClient.convertToType(data['expected_output'], {'String': Object});
             }
@@ -67,6 +70,10 @@ class TableOfContentsTasksIdGet200ResponseInitialTestCase {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>TableOfContentsTasksIdGet200ResponseInitialTestCase</code>.
      */
     static validateJSON(data) {
+        // ensure the json data is a string
+        if (data['additional_code'] && !(typeof data['additional_code'] === 'string' || data['additional_code'] instanceof String)) {
+            throw new Error("Expected the field `additional_code` to be a primitive type in the JSON string but got " + data['additional_code']);
+        }
 
         return true;
     }
@@ -85,6 +92,11 @@ TableOfContentsTasksIdGet200ResponseInitialTestCase.prototype['id'] = undefined;
  * @member {Object.<String, Object>} input
  */
 TableOfContentsTasksIdGet200ResponseInitialTestCase.prototype['input'] = undefined;
+
+/**
+ * @member {String} additional_code
+ */
+TableOfContentsTasksIdGet200ResponseInitialTestCase.prototype['additional_code'] = undefined;
 
 /**
  * @member {Object.<String, Object>} expected_output

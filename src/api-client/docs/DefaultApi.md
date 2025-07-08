@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**apiAuthLoginPost**](DefaultApi.md#apiAuthLoginPost) | **POST** /api/auth/login | User login
 [**apiAuthLogoutPost**](DefaultApi.md#apiAuthLogoutPost) | **POST** /api/auth/logout | User logout
 [**apiAuthRegisterPost**](DefaultApi.md#apiAuthRegisterPost) | **POST** /api/auth/register | User registration
+[**submitPost**](DefaultApi.md#submitPost) | **POST** /submit | Submit Code for Task
 [**tableOfContentsGet**](DefaultApi.md#tableOfContentsGet) | **GET** /table-of-contents/ | Get Table of Contents
 [**tableOfContentsTasksIdGet**](DefaultApi.md#tableOfContentsTasksIdGet) | **GET** /table-of-contents/tasks/{id} | Get Task by ID
 [**tableOfContentsTasksTaskIdPost**](DefaultApi.md#tableOfContentsTasksTaskIdPost) | **POST** /table-of-contents/tasks/{taskId} | Set Task Status
@@ -137,6 +138,62 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+## submitPost
+
+> SubmitPost200Response submitPost(submitPostRequest)
+
+Submit Code for Task
+
+Submits the user&#39;s code for a specific task and returns the result of the execution. 
+
+### Example
+
+```javascript
+import AuthApi from 'auth_api';
+let defaultClient = AuthApi.ApiClient.instance;
+// Configure API key authorization: RefreshTokenHeader
+let RefreshTokenHeader = defaultClient.authentications['RefreshTokenHeader'];
+RefreshTokenHeader.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//RefreshTokenHeader.apiKeyPrefix = 'Token';
+// Configure API key authorization: BearerAuth
+let BearerAuth = defaultClient.authentications['BearerAuth'];
+BearerAuth.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//BearerAuth.apiKeyPrefix = 'Token';
+
+let apiInstance = new AuthApi.DefaultApi();
+let submitPostRequest = new AuthApi.SubmitPostRequest(); // SubmitPostRequest | 
+apiInstance.submitPost(submitPostRequest, (error, data, response) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+});
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **submitPostRequest** | [**SubmitPostRequest**](SubmitPostRequest.md)|  | 
+
+### Return type
+
+[**SubmitPost200Response**](SubmitPost200Response.md)
+
+### Authorization
+
+[RefreshTokenHeader](../README.md#RefreshTokenHeader), [BearerAuth](../README.md#BearerAuth)
 
 ### HTTP request headers
 

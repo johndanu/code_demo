@@ -124,6 +124,7 @@ Class | Method | HTTP request | Description
 *AuthApi.DefaultApi* | [**apiAuthLoginPost**](docs/DefaultApi.md#apiAuthLoginPost) | **POST** /api/auth/login | User login
 *AuthApi.DefaultApi* | [**apiAuthLogoutPost**](docs/DefaultApi.md#apiAuthLogoutPost) | **POST** /api/auth/logout | User logout
 *AuthApi.DefaultApi* | [**apiAuthRegisterPost**](docs/DefaultApi.md#apiAuthRegisterPost) | **POST** /api/auth/register | User registration
+*AuthApi.DefaultApi* | [**submitPost**](docs/DefaultApi.md#submitPost) | **POST** /submit | Submit Code for Task
 *AuthApi.DefaultApi* | [**tableOfContentsGet**](docs/DefaultApi.md#tableOfContentsGet) | **GET** /table-of-contents/ | Get Table of Contents
 *AuthApi.DefaultApi* | [**tableOfContentsTasksIdGet**](docs/DefaultApi.md#tableOfContentsTasksIdGet) | **GET** /table-of-contents/tasks/{id} | Get Task by ID
 *AuthApi.DefaultApi* | [**tableOfContentsTasksTaskIdPost**](docs/DefaultApi.md#tableOfContentsTasksTaskIdPost) | **POST** /table-of-contents/tasks/{taskId} | Set Task Status
@@ -142,6 +143,9 @@ Class | Method | HTTP request | Description
  - [AuthApi.ApiAuthRegisterPost201Response](docs/ApiAuthRegisterPost201Response.md)
  - [AuthApi.ApiAuthRegisterPost400Response](docs/ApiAuthRegisterPost400Response.md)
  - [AuthApi.ApiAuthRegisterPostRequest](docs/ApiAuthRegisterPostRequest.md)
+ - [AuthApi.SubmitPost200Response](docs/SubmitPost200Response.md)
+ - [AuthApi.SubmitPost400Response](docs/SubmitPost400Response.md)
+ - [AuthApi.SubmitPostRequest](docs/SubmitPostRequest.md)
  - [AuthApi.TableOfContentsGet200ResponseInner](docs/TableOfContentsGet200ResponseInner.md)
  - [AuthApi.TableOfContentsGet200ResponseInnerTasksInner](docs/TableOfContentsGet200ResponseInnerTasksInner.md)
  - [AuthApi.TableOfContentsGet200ResponseInnerTasksInnerTaskStatus](docs/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.md)

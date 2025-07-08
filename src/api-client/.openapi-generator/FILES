@@ -14,6 +14,9 @@ docs/ApiAuthRegisterPost201Response.md
 docs/ApiAuthRegisterPost400Response.md
 docs/ApiAuthRegisterPostRequest.md
 docs/DefaultApi.md
+docs/SubmitPost200Response.md
+docs/SubmitPost400Response.md
+docs/SubmitPostRequest.md
 docs/TableOfContentsGet200ResponseInner.md
 docs/TableOfContentsGet200ResponseInnerTasksInner.md
 docs/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.md
@@ -39,6 +42,9 @@ src/model/ApiAuthLogoutPost403Response.js
 src/model/ApiAuthRegisterPost201Response.js
 src/model/ApiAuthRegisterPost400Response.js
 src/model/ApiAuthRegisterPostRequest.js
+src/model/SubmitPost200Response.js
+src/model/SubmitPost400Response.js
+src/model/SubmitPostRequest.js
 src/model/TableOfContentsGet200ResponseInner.js
 src/model/TableOfContentsGet200ResponseInnerTasksInner.js
 src/model/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus.js
@@ -47,6 +53,3 @@ src/model/TableOfContentsTasksIdGet200ResponseInitialTestCase.js
 src/model/TableOfContentsTasksTaskIdPost200Response.js
 src/model/TableOfContentsTasksTaskIdPost400Response.js
 src/model/TableOfContentsTasksTaskIdPostRequest.js
-test/model/TableOfContentsTasksTaskIdPost200Response.spec.js
-test/model/TableOfContentsTasksTaskIdPost400Response.spec.js
-test/model/TableOfContentsTasksTaskIdPostRequest.spec.js

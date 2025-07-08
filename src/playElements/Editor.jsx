@@ -17,6 +17,7 @@ import {
   Button,
   Typography
 } from '@mui/material';
+import { useSubmitApi } from '../hooks/useSubmitApi';
 
 const languageExtensions = {
   javascript: javascript(),
@@ -24,7 +25,7 @@ const languageExtensions = {
   html: html(),
 };
 
-const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
+const Editor = ({ setOutput, taskcode, output, expectedOutput,additional_code }) => {
   const location = useLocation();
   const pathSegments = location.pathname.split('/');
   const basePath = `/${pathSegments[1]}/${pathSegments[2]}`;
@@ -37,6 +38,7 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { updateTaskStatus } = useStatusApi();
+  const {submitTask} = useSubmitApi();
 
   const handleChange = (value) => {
     setCode(value);
@@ -78,11 +80,19 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
   setShowFailureModal(true);
   return;
 }
+    const requestBody = {
+      code: code,
+      taskId: Number(id),
+    }
+    const response = await submitTask(requestBody);
+    // const taskUpStatus= await updateTaskStatus(id, 'completed');
 
-    const taskUpStatus= await updateTaskStatus(id, 'completed');
-
-    if(taskUpStatus.status === 200){
+    if(response.passed){
       fireConfetti();
+    }
+    else{
+      setShowFailureModal(true);
+      return;
     }
 
     
@@ -144,8 +154,8 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
             className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center gap-2"
             onClick={async () => {
               try {
-                const exists = /<!DOCTYPE html>/i.test(code);
-                const result = await runCode(code, language, !exists);
+                const exists = /<!DOCTYPE html>/i.test(code+additional_code);
+                const result = await runCode(code+additional_code, language, !exists);
 
                 setOutput({
                   logs: result.outputs.map(o => o.content),
@@ -221,7 +231,7 @@ const Editor = ({ setOutput, taskcode, output, expectedOutput }) => {
         </DialogActions>
       </Dialog>
 
-      {/* ❌ Failure Modal */}
+      {/* Failure Modal */}
       <Dialog open={showFailureModal} onClose={() => setShowFailureModal(false)}>
         <DialogTitle className="text-xl font-semibold text-center text-red-600">
           Incorrect Output

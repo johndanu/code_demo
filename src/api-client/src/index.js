@@ -24,6 +24,9 @@ import ApiAuthLogoutPost403Response from './model/ApiAuthLogoutPost403Response';
 import ApiAuthRegisterPost201Response from './model/ApiAuthRegisterPost201Response';
 import ApiAuthRegisterPost400Response from './model/ApiAuthRegisterPost400Response';
 import ApiAuthRegisterPostRequest from './model/ApiAuthRegisterPostRequest';
+import SubmitPost200Response from './model/SubmitPost200Response';
+import SubmitPost400Response from './model/SubmitPost400Response';
+import SubmitPostRequest from './model/SubmitPostRequest';
 import TableOfContentsGet200ResponseInner from './model/TableOfContentsGet200ResponseInner';
 import TableOfContentsGet200ResponseInnerTasksInner from './model/TableOfContentsGet200ResponseInnerTasksInner';
 import TableOfContentsGet200ResponseInnerTasksInnerTaskStatus from './model/TableOfContentsGet200ResponseInnerTasksInnerTaskStatus';
@@ -138,6 +141,24 @@ export {
      * @property {module:model/ApiAuthRegisterPostRequest}
      */
     ApiAuthRegisterPostRequest,
+
+    /**
+     * The SubmitPost200Response model constructor.
+     * @property {module:model/SubmitPost200Response}
+     */
+    SubmitPost200Response,
+
+    /**
+     * The SubmitPost400Response model constructor.
+     * @property {module:model/SubmitPost400Response}
+     */
+    SubmitPost400Response,
+
+    /**
+     * The SubmitPostRequest model constructor.
+     * @property {module:model/SubmitPostRequest}
+     */
+    SubmitPostRequest,
 
     /**
      * The TableOfContentsGet200ResponseInner model constructor.

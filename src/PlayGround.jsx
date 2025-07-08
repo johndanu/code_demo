@@ -12,6 +12,7 @@ const PlayGround = () => {
   const [taskDetails, setTaskDetails] = useState(null);
   const [output, setOutput] = useState({});
   const [expectedOutput, setExpectedOutput] = useState({});
+  const [additional_code, setAdditionalCode] = useState('');
   const { getTaskById } = useContentApi();
 
   useEffect(() => {
@@ -29,11 +30,12 @@ const PlayGround = () => {
             task: data.description,
             example: data.example
           });
-          console.log("type of:",typeof data.initial_test_case.expected_output.consoleOutput);
+          console.log("additional_code", data.initial_test_case.additional_code || '');
           console.log("output",data.initial_test_case.expected_output||{});
           setExpectedOutput({
             output: data.initial_test_case.expected_output||{},
           });
+          setAdditionalCode(data.initial_test_case.additional_code || '');
 
           // Handle localStorage task status
           const taskStatusStr = localStorage.getItem('taskStatusList');
@@ -69,7 +71,7 @@ const PlayGround = () => {
           </div>
           <div style={{ flex: 4, display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 2.5 }}>
-              <Editor setOutput={setOutput} taskcode={taskcode} output={output} expectedOutput={expectedOutput} />
+              <Editor setOutput={setOutput} taskcode={taskcode} output={output} expectedOutput={expectedOutput} additional_code={additional_code} />
             </div>
             <div style={{ flex: 1.5 }}>
               <Terminal output={output} />

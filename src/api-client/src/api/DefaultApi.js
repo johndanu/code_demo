@@ -24,6 +24,9 @@ import ApiAuthLogoutPost403Response from '../model/ApiAuthLogoutPost403Response'
 import ApiAuthRegisterPost201Response from '../model/ApiAuthRegisterPost201Response';
 import ApiAuthRegisterPost400Response from '../model/ApiAuthRegisterPost400Response';
 import ApiAuthRegisterPostRequest from '../model/ApiAuthRegisterPostRequest';
+import SubmitPost200Response from '../model/SubmitPost200Response';
+import SubmitPost400Response from '../model/SubmitPost400Response';
+import SubmitPostRequest from '../model/SubmitPostRequest';
 import TableOfContentsGet200ResponseInner from '../model/TableOfContentsGet200ResponseInner';
 import TableOfContentsTasksIdGet200Response from '../model/TableOfContentsTasksIdGet200Response';
 import TableOfContentsTasksTaskIdPost200Response from '../model/TableOfContentsTasksTaskIdPost200Response';
@@ -169,6 +172,48 @@ export default class DefaultApi {
       let returnType = ApiAuthRegisterPost201Response;
       return this.apiClient.callApi(
         '/api/auth/register', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null, callback
+      );
+    }
+
+    /**
+     * Callback function to receive the result of the submitPost operation.
+     * @callback module:api/DefaultApi~submitPostCallback
+     * @param {String} error Error message, if any.
+     * @param {module:model/SubmitPost200Response} data The data returned by the service call.
+     * @param {String} response The complete HTTP response.
+     */
+
+    /**
+     * Submit Code for Task
+     * Submits the user's code for a specific task and returns the result of the execution. 
+     * @param {module:model/SubmitPostRequest} submitPostRequest 
+     * @param {module:api/DefaultApi~submitPostCallback} callback The callback function, accepting three arguments: error, data, response
+     * data is of type: {@link module:model/SubmitPost200Response}
+     */
+    submitPost(submitPostRequest, callback) {
+      let postBody = submitPostRequest;
+      // verify the required parameter 'submitPostRequest' is set
+      if (submitPostRequest === undefined || submitPostRequest === null) {
+        throw new Error("Missing the required parameter 'submitPostRequest' when calling submitPost");
+      }
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['RefreshTokenHeader', 'BearerAuth'];
+      let contentTypes = ['application/json'];
+      let accepts = ['application/json'];
+      let returnType = SubmitPost200Response;
+      return this.apiClient.callApi(
+        '/submit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
