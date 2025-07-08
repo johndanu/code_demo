@@ -40,7 +40,9 @@ if(useIframe){
       const originalConsole = { ...console };
       
       console.log = (...args) => {
-      outputs.push({ type: 'log', content: args.join(' ') });
+      args.forEach(value => {
+      outputs.push({ type: 'log', content: value, valueType: typeof value });
+      });
     };
 
     console.error = (...args) => {
@@ -66,7 +68,7 @@ if(useIframe){
       });
       
       try {
-         const fn = new Function(\`${code}\`);
+         const fn = new Function(${JSON.stringify(code)});
           fn();
       } catch (err) {
        const stackLine = err.stack?.split('\\n')[1] || '';
